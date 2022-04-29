@@ -169,6 +169,19 @@ namespace Book.Chapter7.Refactored_3
             Assert.Equal(UserType.Customer, sut.Type);
         }
 
+        [InlineData(1, 2)]
+        [InlineData(4, 3)]
+        [InlineData(1, 1)]
+        [InlineData(0, 0)]
+        [Theory]
+        public void ChangeNumberOfEmployees(int numberOfEmployees, int delta) // me
+        {
+            var sut = new Company("mycorp.com", numberOfEmployees);
+      
+            if (numberOfEmployees + delta < 0)
+                Assert.Throws<Exception>(() => sut.ChangeNumberOfEmployees(delta));
+        }  
+
         [InlineData("mycorp.com", "email@mycorp.com", true)]
         [InlineData("mycorp.com", "email@gmail.com", false)]
         [Theory]
